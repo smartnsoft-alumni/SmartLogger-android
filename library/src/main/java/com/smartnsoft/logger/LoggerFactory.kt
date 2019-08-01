@@ -67,6 +67,7 @@ object LoggerFactory
    * It uses the Android built-in [android.util.Log] attributes for defining those log levels.
    *
    */
+  @JvmField
   var logLevel = Log.WARN
 
   /**
@@ -122,6 +123,7 @@ object LoggerFactory
    * @return a new instance of [Logger] implementation, holding the provided `category`
    * @see .getInstance
    */
+  @JvmStatic
   fun getInstance(category: String): Logger
   {
     return getInstance(category, null)
@@ -131,6 +133,7 @@ object LoggerFactory
    * @param theClass the class used for computing the logging category
    * @return a new instance of [Logger] implementation, holding the provided `category`
    */
+  @JvmStatic
   fun getInstance(theClass: Class<*>): Logger
   {
     return getInstance(null, theClass)
