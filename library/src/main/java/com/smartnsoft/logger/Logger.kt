@@ -51,18 +51,18 @@ interface Logger
 
   fun warn(message: String)
 
-  fun warn(message: String, throwable: Throwable)
+  fun warn(message: String, throwable: Throwable?)
 
-  fun warn(message: StringBuffer, throwable: Throwable)
+  fun warn(message: StringBuffer, throwable: Throwable?)
 
   fun error(message: String)
 
-  fun error(message: String, throwable: Throwable)
+  fun error(message: String, throwable: Throwable?)
 
-  fun error(message: StringBuffer, throwable: Throwable)
+  fun error(message: StringBuffer, throwable: Throwable?)
 
   fun fatal(message: String)
 
-  fun fatal(message: String, throwable: Throwable)
+  fun fatal(message: String, throwable: Throwable?)
 
 }

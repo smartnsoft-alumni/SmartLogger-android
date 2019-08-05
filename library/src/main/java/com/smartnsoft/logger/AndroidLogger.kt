@@ -45,7 +45,7 @@ class AndroidLogger(private val category: String?) : Logger
 
   override val isVerboseEnabled: Boolean
     get() = LoggerFactory.logLevel <= Log.VERBOSE
-  
+
   override val isDebugEnabled: Boolean
     get() = LoggerFactory.logLevel <= Log.DEBUG
 
@@ -81,12 +81,12 @@ class AndroidLogger(private val category: String?) : Logger
     Log.w(category, message)
   }
 
-  override fun warn(message: String, throwable: Throwable)
+  override fun warn(message: String, throwable: Throwable?)
   {
     Log.w(category, message, throwable)
   }
 
-  override fun warn(message: StringBuffer, throwable: Throwable)
+  override fun warn(message: StringBuffer, throwable: Throwable?)
   {
     warn(message.toString(), throwable)
   }
@@ -96,12 +96,12 @@ class AndroidLogger(private val category: String?) : Logger
     Log.e(category, message)
   }
 
-  override fun error(message: String, throwable: Throwable)
+  override fun error(message: String, throwable: Throwable?)
   {
     Log.e(category, message, throwable)
   }
 
-  override fun error(message: StringBuffer, throwable: Throwable)
+  override fun error(message: StringBuffer, throwable: Throwable?)
   {
     error(message.toString(), throwable)
   }
@@ -111,7 +111,7 @@ class AndroidLogger(private val category: String?) : Logger
     error(message)
   }
 
-  override fun fatal(message: String, throwable: Throwable)
+  override fun fatal(message: String, throwable: Throwable?)
   {
     error(message, throwable)
   }

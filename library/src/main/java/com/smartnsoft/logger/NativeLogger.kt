@@ -78,16 +78,16 @@ class NativeLogger(category: String?) : Logger
     System.err.println(getPrefix() + "[E] " + message)
   }
 
-  override fun error(message: String, throwable: Throwable)
+  override fun error(message: String, throwable: Throwable?)
   {
     System.err.println(getPrefix() + "[E] " + message)
-    throwable.printStackTrace(System.err)
+    throwable?.printStackTrace(System.err)
   }
 
-  override fun error(message: StringBuffer, throwable: Throwable)
+  override fun error(message: StringBuffer, throwable: Throwable?)
   {
     System.err.println(getPrefix() + message)
-    throwable.printStackTrace(System.err)
+    throwable?.printStackTrace(System.err)
   }
 
   override fun fatal(message: String)
@@ -95,10 +95,10 @@ class NativeLogger(category: String?) : Logger
     System.err.println(getPrefix() + "[F] " + message)
   }
 
-  override fun fatal(message: String, throwable: Throwable)
+  override fun fatal(message: String, throwable: Throwable?)
   {
     System.err.println(getPrefix() + "[F] " + message)
-    throwable.printStackTrace(System.err)
+    throwable?.printStackTrace(System.err)
   }
 
   override fun info(message: String)
@@ -111,19 +111,19 @@ class NativeLogger(category: String?) : Logger
     println(getPrefix() + "[W] " + message)
   }
 
-  override fun warn(message: String, throwable: Throwable)
+  override fun warn(message: String, throwable: Throwable?)
   {
     println(getPrefix() + "[W] " + message)
-    throwable.printStackTrace(System.out)
+    throwable?.printStackTrace(System.out)
   }
 
-  override fun warn(message: StringBuffer, throwable: Throwable)
+  override fun warn(message: StringBuffer, throwable: Throwable?)
   {
     println(getPrefix() + "[W] " + message)
-    throwable.printStackTrace(System.out)
+    throwable?.printStackTrace(System.out)
   }
 
-  protected fun getPrefix(): String
+  private fun getPrefix(): String
   {
     return "[${System.currentTimeMillis()}] $prefix [${Thread.currentThread().name}] "
   }
