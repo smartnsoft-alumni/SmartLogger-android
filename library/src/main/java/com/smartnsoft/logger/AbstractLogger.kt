@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2017 Smart&Soft
+// Copyright (c) 2019 Smart&Soft
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,47 +22,40 @@
 
 package com.smartnsoft.logger
 
+import android.util.Log
+
 /**
- * Just in order to have various loggers.
  *
- * @author Édouard Mercier
- * @since 2007.12.23
+ * @author Cyllene
+ * @since 2019.08.06
  */
-interface Logger
+abstract class AbstractLogger(category: String?, @LoggerFactory.LogLevel private val logLevel: Int?) : Logger
 {
 
-  val isVerboseEnabled: Boolean
+  constructor(theClass: Class<*>, @LoggerFactory.LogLevel logLevel: Int?) : this(theClass.simpleName, logLevel)
 
-  val isDebugEnabled: Boolean
+  private val currentLogLevel: Int
+    get()
+    {
+      return logLevel ?: LoggerFactory.logLevel
+    }
 
-  val isInfoEnabled: Boolean
+  override val isVerboseEnabled: Boolean
+    get() = currentLogLevel <= Log.VERBOSE
 
-  val isWarnEnabled: Boolean
+  override val isDebugEnabled: Boolean
+    get() = currentLogLevel <= Log.DEBUG
 
-  val isErrorEnabled: Boolean
+  override val isInfoEnabled: Boolean
+    get() = currentLogLevel <= Log.INFO
 
-  val isFatalEnabled: Boolean
+  override val isWarnEnabled: Boolean
+    get() = currentLogLevel <= Log.WARN
 
-  fun verbose(message: String)
+  override val isErrorEnabled: Boolean
+    get() = currentLogLevel <= Log.ERROR
 
-  fun debug(message: String)
-
-  fun info(message: String)
-
-  fun warn(message: String)
-
-  fun warn(message: String, throwable: Throwable?)
-
-  fun warn(message: StringBuffer, throwable: Throwable?)
-
-  fun error(message: String)
-
-  fun error(message: String, throwable: Throwable?)
-
-  fun error(message: StringBuffer, throwable: Throwable?)
-
-  fun fatal(message: String)
-
-  fun fatal(message: String, throwable: Throwable?)
+  override val isFatalEnabled: Boolean
+    get() = currentLogLevel <= Log.ERROR
 
 }

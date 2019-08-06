@@ -22,8 +22,6 @@
 
 package com.smartnsoft.logger
 
-import android.util.Log
-
 /**
  * An implementation which uses the Java standard output and error streams.
  *
@@ -38,46 +36,10 @@ import android.util.Log
  *
  * @since 2007.12.23
  */
-class NativeLogger(category: String?, @LoggerFactory.LogLevel private val logLevel: Int?) : Logger
+class NativeLogger(category: String?, @LoggerFactory.LogLevel private val logLevel: Int?) : AbstractLogger(category, logLevel)
 {
 
   constructor(theClass: Class<*>, @LoggerFactory.LogLevel logLevel: Int?) : this(theClass.simpleName, logLevel)
-
-  private val currentLogLevel: Int
-    get()
-    {
-      return logLevel ?: LoggerFactory.logLevel
-    }
-
-  override fun isVerboseEnabled(): Boolean
-  {
-    return currentLogLevel <= Log.VERBOSE
-  }
-
-  override fun isDebugEnabled(): Boolean
-  {
-    return currentLogLevel <= Log.DEBUG
-  }
-
-  override fun isInfoEnabled(): Boolean
-  {
-    return currentLogLevel <= Log.INFO
-  }
-
-  override fun isWarnEnabled(): Boolean
-  {
-    return currentLogLevel <= Log.WARN
-  }
-
-  override fun isErrorEnabled(): Boolean
-  {
-    return currentLogLevel <= Log.ERROR
-  }
-
-  override fun isFatalEnabled(): Boolean
-  {
-    return currentLogLevel <= Log.ERROR
-  }
 
   private val prefix: String = "[$category] "
 
