@@ -43,23 +43,35 @@ class NativeLogger(category: String?) : Logger
 
   constructor(theClass: Class<*>) : this(theClass.simpleName)
 
-  override val isVerboseEnabled: Boolean
-    get() = LoggerFactory.logLevel <= Log.VERBOSE
+  override fun isVerboseEnabled(): Boolean
+  {
+    return LoggerFactory.logLevel <= Log.VERBOSE
+  }
 
-  override val isDebugEnabled: Boolean
-    get() = LoggerFactory.logLevel <= Log.DEBUG
+  override fun isDebugEnabled(): Boolean
+  {
+    return LoggerFactory.logLevel <= Log.DEBUG
+  }
 
-  override val isInfoEnabled: Boolean
-    get() = LoggerFactory.logLevel <= Log.INFO
+  override fun isInfoEnabled(): Boolean
+  {
+    return LoggerFactory.logLevel <= Log.INFO
+  }
 
-  override val isWarnEnabled: Boolean
-    get() = LoggerFactory.logLevel <= Log.WARN
+  override fun isWarnEnabled(): Boolean
+  {
+    return LoggerFactory.logLevel <= Log.WARN
+  }
 
-  override val isErrorEnabled: Boolean
-    get() = LoggerFactory.logLevel <= Log.ERROR
+  override fun isErrorEnabled(): Boolean
+  {
+    return LoggerFactory.logLevel <= Log.ERROR
+  }
 
-  override val isFatalEnabled: Boolean
-    get() = LoggerFactory.logLevel <= Log.ERROR
+  override fun isFatalEnabled(): Boolean
+  {
+    return LoggerFactory.logLevel <= Log.ERROR
+  }
 
   private val prefix: String = "[$category] "
 

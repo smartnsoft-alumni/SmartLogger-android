@@ -31,17 +31,17 @@ package com.smartnsoft.logger
 interface Logger
 {
 
-  val isVerboseEnabled: Boolean
+  fun isVerboseEnabled(): Boolean
 
-  val isDebugEnabled: Boolean
+  fun isDebugEnabled(): Boolean
 
-  val isInfoEnabled: Boolean
+  fun isInfoEnabled(): Boolean
 
-  val isWarnEnabled: Boolean
+  fun isWarnEnabled(): Boolean
 
-  val isErrorEnabled: Boolean
+  fun isErrorEnabled(): Boolean
 
-  val isFatalEnabled: Boolean
+  fun isFatalEnabled(): Boolean
 
   fun verbose(message: String)
 
