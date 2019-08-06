@@ -23,6 +23,7 @@
 package com.smartnsoft.logger
 
 import android.util.Log
+import androidx.annotation.IntDef
 
 /**
  * In order to have an entry point for the logging interface. Because, when we use the Android logger, there are problems during the unitary tests on
@@ -53,6 +54,17 @@ import android.util.Log
  */
 object LoggerFactory
 {
+
+  @IntDef(
+      Log.VERBOSE,
+      Log.INFO,
+      Log.DEBUG,
+      Log.WARN,
+      Log.ERROR,
+      Log.ASSERT
+  )
+  @Retention(AnnotationRetention.SOURCE)
+  annotation class LogLevel
 
   // Used for a synchronization purpose.
   private val synchronizationObject = Any()
@@ -124,9 +136,10 @@ object LoggerFactory
    * @see .getInstance
    */
   @JvmStatic
-  fun getInstance(category: String): Logger
+  @JvmOverloads
+  fun getInstance(category: String, @LogLevel logLevel: Int? = null): Logger
   {
-    return getInstance(category, null)
+    return getInstance(category, null, logLevel)
   }
 
   /**
@@ -134,12 +147,13 @@ object LoggerFactory
    * @return a new instance of [Logger] implementation, holding the provided `category`
    */
   @JvmStatic
-  fun getInstance(theClass: Class<*>): Logger
+  @JvmOverloads
+  fun getInstance(theClass: Class<*>, @LogLevel logLevel: Int? = null): Logger
   {
-    return getInstance(null, theClass)
+    return getInstance(null, theClass, logLevel)
   }
 
-  private fun getInstance(category: String?, theClass: Class<*>?): Logger
+  private fun getInstance(category: String?, theClass: Class<*>?, specifiedLogLevel: Int?): Logger
   {
     synchronized(synchronizationObject) {
       // We need to synchronize this part of the code
@@ -186,18 +200,18 @@ object LoggerFactory
     {
       LoggerFactory.LoggerImplementation.Other         -> return if (theClass != null)
       {
-        loggerConfigurator?.getLogger(theClass) ?: AndroidLogger(theClass)
+        loggerConfigurator?.getLogger(theClass) ?: AndroidLogger(theClass, specifiedLogLevel)
       }
       else
       {
-        loggerConfigurator?.getLogger(category) ?: AndroidLogger(category)
+        loggerConfigurator?.getLogger(category) ?: AndroidLogger(category, specifiedLogLevel)
       }
-      LoggerFactory.LoggerImplementation.AndroidLogger -> return theClass?.let { AndroidLogger(it) }
-          ?: AndroidLogger(category)
-      LoggerFactory.LoggerImplementation.NativeLogger  -> return theClass?.let { NativeLogger(it) }
-          ?: NativeLogger(category)
-      else                                             -> return theClass?.let { AndroidLogger(it) }
-          ?: AndroidLogger(category)
+      LoggerFactory.LoggerImplementation.AndroidLogger -> return theClass?.let { AndroidLogger(it, specifiedLogLevel) }
+          ?: AndroidLogger(category, specifiedLogLevel)
+      LoggerFactory.LoggerImplementation.NativeLogger  -> return theClass?.let { NativeLogger(it, specifiedLogLevel) }
+          ?: NativeLogger(category, specifiedLogLevel)
+      else                                             -> return theClass?.let { AndroidLogger(it, specifiedLogLevel) }
+          ?: AndroidLogger(category, specifiedLogLevel)
     }
   }
 

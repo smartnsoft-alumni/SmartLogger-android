@@ -38,39 +38,45 @@ import android.util.Log
  *
  * @since 2007.12.23
  */
-class NativeLogger(category: String?) : Logger
+class NativeLogger(category: String?, @LoggerFactory.LogLevel private val logLevel: Int?) : Logger
 {
 
-  constructor(theClass: Class<*>) : this(theClass.simpleName)
+  constructor(theClass: Class<*>, @LoggerFactory.LogLevel logLevel: Int?) : this(theClass.simpleName, logLevel)
+
+  private val currentLogLevel: Int
+    get()
+    {
+      return logLevel ?: LoggerFactory.logLevel
+    }
 
   override fun isVerboseEnabled(): Boolean
   {
-    return LoggerFactory.logLevel <= Log.VERBOSE
+    return currentLogLevel <= Log.VERBOSE
   }
 
   override fun isDebugEnabled(): Boolean
   {
-    return LoggerFactory.logLevel <= Log.DEBUG
+    return currentLogLevel <= Log.DEBUG
   }
 
   override fun isInfoEnabled(): Boolean
   {
-    return LoggerFactory.logLevel <= Log.INFO
+    return currentLogLevel <= Log.INFO
   }
 
   override fun isWarnEnabled(): Boolean
   {
-    return LoggerFactory.logLevel <= Log.WARN
+    return currentLogLevel <= Log.WARN
   }
 
   override fun isErrorEnabled(): Boolean
   {
-    return LoggerFactory.logLevel <= Log.ERROR
+    return currentLogLevel <= Log.ERROR
   }
 
   override fun isFatalEnabled(): Boolean
   {
-    return LoggerFactory.logLevel <= Log.ERROR
+    return currentLogLevel <= Log.ERROR
   }
 
   private val prefix: String = "[$category] "

@@ -36,7 +36,7 @@ allprojects
     groupId = 'com.smartnsoft'
     artifactId = 'logger'
     libraryName = "SmartLogger"
-    versionName = "1.0.0-004-SNAPSHOT"
+    versionName = "1.0.0-005-SNAPSHOT"
     artifactDescription = "A component which allows to tweak log usage"
     versionCode = 1
   }
