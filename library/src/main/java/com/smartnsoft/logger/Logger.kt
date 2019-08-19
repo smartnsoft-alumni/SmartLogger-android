@@ -31,6 +31,9 @@ package com.smartnsoft.logger
 interface Logger
 {
 
+  @LoggerFactory.LogLevel
+  var logLevel: Int?
+
   val isVerboseEnabled: Boolean
 
   val isDebugEnabled: Boolean
