@@ -80,7 +80,8 @@ object LoggerFactory
    *
    */
   @JvmField
-  var logLevel = Log.WARN
+  @LoggerFactory.LogLevel
+  var logLevel: Int = Log.WARN
 
   /**
    * Remembers internally which [Logger] implementation to use.

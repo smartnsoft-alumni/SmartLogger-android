@@ -29,7 +29,7 @@ import android.util.Log
  * @author Cyllene
  * @since 2019.08.06
  */
-abstract class AbstractLogger(category: String?, @LoggerFactory.LogLevel private val logLevel: Int?) : Logger
+abstract class AbstractLogger(category: String?, @LoggerFactory.LogLevel var logLevel: Int?) : Logger
 {
 
   constructor(theClass: Class<*>, @LoggerFactory.LogLevel logLevel: Int?) : this(theClass.simpleName, logLevel)
