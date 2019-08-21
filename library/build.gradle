@@ -57,10 +57,7 @@ task javadoc(type: Javadoc) {
 
   options.charSet = "UTF-8"
   options.overview = "src/main/javadoc/overview.html"
-  options.links = [
-  "http://docs.oracle.com/javase/7/docs/api/",
-  "http://d.android.com/reference/"
-  ]
+  options.links = project.documentationReference
 
   classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
   failOnError = false
@@ -107,7 +104,7 @@ publishing
         def root = asNode()
         root.appendNode("description", project.artifactDescription)
         root.appendNode("name", project.libraryName)
-        root.appendNode("url", "https://github.com/smartnsoft/SmartLogger-android")
+        root.appendNode("url", "https://github.com/smartnsoft/" + project.repositoryName)
         root.children().last() + pomConfig
       }
     }
@@ -141,7 +138,7 @@ bintray
     name = project.libraryName
     userOrg = "smartnsoft"
     licenses = ["MIT"]
-    vcsUrl = "https://github.com/smartnsoft/SmartLogger-android.git"
+    vcsUrl = "https://github.com/smartnsoft/" + project.repositoryName + ".git"
     publish = true
 
     version

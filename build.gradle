@@ -33,12 +33,20 @@ allprojects
   {
     compileSdkVersion = 29
     minSdkVersion = 16
+    versionCode = 1
+    versionName = "1.0.0-008-SNAPSHOT"
+
     groupId = 'com.smartnsoft'
     artifactId = 'logger'
     libraryName = "SmartLogger"
-    versionName = "1.0.0-008-SNAPSHOT"
+    repositoryName = "SmartLogger-android"
+
     artifactDescription = "A component which allows to tweak log usage"
-    versionCode = 1
+    documentationReference = [
+    "http://docs.oracle.com/javase/7/docs/api/",
+    "http://d.android.com/reference/"
+    ]
+
   }
 }
 
